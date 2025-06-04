@@ -1,0 +1,38 @@
+# Here you can define all your datasets by using simple YAML syntax.
+#
+# Documentation for this file format can be found in "The Data Catalog"
+# Link: https://docs.kedro.org/en/stable/data/data_catalog.html
+
+
+# Raw data input
+raw_hotel_data:
+  type: pandas.CSVDataset
+  filepath: data/01_raw/EDA_data.csv
+
+eda_final:
+  type: pandas.CSVDataset
+  filepath: data/02_intermediate/TSA_data.csv
+  load_args:
+    encoding: ISO-8859-1
+  save_args:
+    index: False
+
+# Preprocessing outputs
+daily_data:
+  type: pandas.ParquetDataset
+  filepath: data/03_primary/daily_data.parquet
+
+encoded_data:
+  type: pandas.ParquetDataset
+  filepath: data/03_primary/encoded_data.parquet
+
+# Model outputs
+xgb_model:
+  type: pickle.PickleDataset
+  filepath: data/06_models/xgboost_model_results.pkl
+  versioned: true
+
+accuracy:
+  type: json.JSONDataset
+  filepath: data/08_reporting/model_accuracy.json
+  versioned: true
