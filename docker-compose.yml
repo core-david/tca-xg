@@ -1,0 +1,35 @@
+
+# cada servicio es un contenedor que va a subir
+services:
+  mlflow:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    # image: ghcr.io/mlflow/mlflow:v2.21.3
+    container_name: mlflow_xg
+    ports: 
+      - "5000:5000"
+    volumes:
+      - mlexperimets-data:/ml
+    depends_on:
+      - postgres
+    command: >
+      mlflow server 
+      --host=0.0.0.0 
+      --backend-store-uri postgresql://mlflow_user:mlflow_password@postgres:5432/mlflow_db 
+      --artifacts-destination file:///ml/mlartifacts
+
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: mlflow_user
+      POSTGRES_PASSWORD: mlflow_password
+      POSTGRES_DB: mlflow_db
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+volumes:
+  mlexperimets-data:
+  postgres-data: 
