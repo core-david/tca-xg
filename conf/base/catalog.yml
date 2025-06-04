@@ -28,11 +28,34 @@ encoded_data:
 
 # Model outputs
 xgb_model:
-  type: pickle.PickleDataset
-  filepath: data/06_models/xgboost_model_results.pkl
-  versioned: true
+  # type: pickle.PickleDataset
+  # filepath: data/06_models/xgboost_model_results.pkl
+  # versioned: true
+  type: kedro_mlflow.io.models.MlflowModelTrackingDataset
+  flavor: mlflow.sklearn
+  artifact_path: "xgb_model"
+  save_args:
+    registered_model_name: "trainedXGB"
 
-accuracy:
-  type: json.JSONDataset
-  filepath: data/08_reporting/model_accuracy.json
-  versioned: true
+# Evaluation metrics datasets
+eval_r2_score:
+  type: kedro_mlflow.io.metrics.MlflowMetricDataset
+
+eval_mae:
+  type: kedro_mlflow.io.metrics.MlflowMetricDataset
+
+eval_max_error:
+  type: kedro_mlflow.io.metrics.MlflowMetricDataset
+
+eval_mse:
+  type: kedro_mlflow.io.metrics.MlflowMetricDataset
+
+eval_rmse:
+  type: kedro_mlflow.io.metrics.MlflowMetricDataset
+
+
+evaluation_plot:
+  type: kedro_mlflow.io.artifacts.MlflowArtifactDataset
+  dataset:
+    type: matplotlib.MatplotlibWriter
+    filepath: data/07_model_output/evaluation_plot.png
