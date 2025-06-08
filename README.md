@@ -1,101 +1,104 @@
-# tca_xg
+# XGBoost
+[![Powered by Kedro](https://img.shields.io/badge/powered_by-Kedro-ffc900?logo=kedro)](https://kedro.org)
+[![Powered by MLflow](https://img.shields.io/badge/MLflow-tracking-0172b2?logo=mlflow)](https://mlflow.org/)
+[![Powered by XGBoost](https://img.shields.io/badge/Built%20with-XGBoost-00599C)](https://xgboost.ai/)
+[![Powered by Docker](https://img.shields.io/badge/Containerized%20with-Docker-2496ed?logo=docker)](https://www.docker.com/)
 
-[![Powered by Kedro](https://img.shields.io/badge/powered_by-kedro-ffc900?logo=kedro)](https://kedro.org)
+This repository contains the implementation of an XGBoost model integrated into a structured pipeline using Kedro.  
+Este repositorio contiene la implementación de un modelo XGBoost integrado en un pipeline estructurado con Kedro.
 
-## Overview
+MLflow is used for experiment tracking, including model versions, metrics, and artifacts. Docker and Docker Compose provide portability and persistent experiment storage.  
+Se utiliza MLflow para el seguimiento de experimentos, incluyendo versiones del modelo, métricas y artefactos. Docker y Docker Compose facilitan la portabilidad y el almacenamiento persistente de los experimentos.
 
-This is your new Kedro project, which was generated using `kedro 0.19.13`.
+---
 
-Take a look at the [Kedro documentation](https://docs.kedro.org) to get started.
+## Project Objective | Objetivo del Proyecto
 
-## Rules and guidelines
+To develop a reproducible and scalable architecture for time series forecasting using XGBoost, leveraging modern MLOps tools like Kedro and MLflow.  
+Desarrollar una arquitectura reproducible y escalable para la predicción de series temporales con XGBoost, aprovechando herramientas modernas de MLOps como Kedro y MLflow.
 
-In order to get the best out of the template:
+---
 
-* Don't remove any lines from the `.gitignore` file we provide
-* Make sure your results can be reproduced by following a data engineering convention
-* Don't commit data to your repository
-* Don't commit any credentials or your local configuration to your repository. Keep all your credentials and local configuration in `conf/local/`
+## Technologies Used | Tecnologías Utilizadas
 
-## How to install dependencies
+- **Kedro**: Framework for structuring data science projects.  
+  *Framework para estructurar proyectos de ciencia de datos.*
 
-Declare any dependencies in `requirements.txt` for `pip` installation.
+- **MLflow**: Experiment tracking for parameters, metrics, and model artifacts.  
+  *Seguimiento de parámetros, métricas y artefactos de modelos.*
 
-To install them, run:
+- **Docker + Docker Compose**: Containerization and service orchestration.  
+  *Contenerización y orquestación de servicios.*
 
-```
+- **XGBoost (Extreme Gradient Boosting)**: Gradient boosting framework optimized for performance and accuracy.  
+  *Framework de gradient boosting optimizado para rendimiento y precisión.*
+
+---
+
+## ⚙️ Installation & Local Execution | Instalación y Ejecución Local
+
+```bash
+# Clone the repository / Clonar el repositorio
+git clone https://github.com/youruser/project-name.git
+cd project-name
+
+# Create and activate virtual environment / Crear y activar entorno virtual
+uv venv
+source .venv/bin/activate  # Windows: .venv\Scripts\activate
+
+# Install dependencies / Instalar dependencias
 pip install -r requirements.txt
-```
+uv sync
 
-## How to run your Kedro pipeline
+# Start MLflow and PostgreSQL / Iniciar MLflow y PostgreSQL
+docker-compose up
 
-You can run your Kedro project with:
-
-```
+# Run Kedro pipeline / Ejecutar pipeline de Kedro
 kedro run
 ```
 
-## How to test your Kedro project
+## Results Visualization with MLflow | Visualización de Resultados con MLflow
 
-Have a look at the file `src/tests/test_run.py` for instructions on how to write your tests. You can run your tests as follows:
+Once Docker is up with docker-compose up, open your browser and go to:  
+**Una vez iniciado Docker con docker-compose up, abre tu navegador y visita:**  
+[http://localhost:5000](http://localhost:5000)
 
-```
-pytest
-```
+You will be able to explore:  
+**Podrás visualizar:**
 
-You can configure the coverage threshold in your project's `pyproject.toml` file under the `[tool.coverage.report]` section.
+- **Parameters used in each run**  
+  *Parámetros utilizados en cada experimento*
 
+- **Collected metrics**  
+  *Métricas obtenidas*
 
-## Project dependencies
+- **Artifacts like trained models**  
+  *Artefactos como modelos entrenados*
 
-To see and update the dependency requirements for your project use `requirements.txt`. You can install the project requirements with `pip install -r requirements.txt`.
+- **Comparison between executions**  
+  *Comparación entre ejecuciones*
 
-[Further information about project dependencies](https://docs.kedro.org/en/stable/kedro_project_setup/dependencies.html#project-specific-dependencies)
+All results are stored and versioned in MLflow. | Todos los resultados se almacenan y versionan en MLflow.
 
-## How to work with Kedro and notebooks
+---
 
-> Note: Using `kedro jupyter` or `kedro ipython` to run your notebook provides these variables in scope: `context`, 'session', `catalog`, and `pipelines`.
->
-> Jupyter, JupyterLab, and IPython are already included in the project requirements by default, so once you have run `pip install -r requirements.txt` you will not need to take any extra steps before you use them.
+## Additional Notes | Notas Adicionales
 
-### Jupyter
-To use Jupyter notebooks in your Kedro project, you need to install Jupyter:
+- **The data used in this project is not publicly shared due to privacy reasons.**  
+  *Los datos utilizados en este proyecto no se comparten públicamente por motivos de privacidad.*
 
-```
-pip install jupyter
-```
+- **You can modify hyperparameters and paths in conf/base/.**  
+  *Puedes modificar hiperparámetros y rutas en conf/base/.*
 
-After installing Jupyter, you can start a local notebook server:
+## 🧑‍🍳 Developed by MasterChefs | Desarrollado por el equipo MasterChefs
 
-```
-kedro jupyter notebook
-```
+This project was collaboratively developed by the MasterChefs team.  
+Este proyecto fue desarrollado colaborativamente por el equipo MasterChefs.
 
-### JupyterLab
-To use JupyterLab, you need to install it:
+**Team Members | Integrantes del equipo:**
 
-```
-pip install jupyterlab
-```
-
-You can also start JupyterLab:
-
-```
-kedro jupyter lab
-```
-
-### IPython
-And if you want to run an IPython session:
-
-```
-kedro ipython
-```
-
-### How to ignore notebook output cells in `git`
-To automatically strip out all output cell contents before committing to `git`, you can use tools like [`nbstripout`](https://github.com/kynan/nbstripout). For example, you can add a hook in `.git/config` with `nbstripout --install`. This will run `nbstripout` before anything is committed to `git`.
-
-> *Note:* Your output cells will be retained locally.
-
-## Package your Kedro project
-
-[Further information about building project documentation and packaging your project](https://docs.kedro.org/en/stable/tutorial/package_a_project.html)
+- [Iván Ortiz](https://github.com/IvanAOrtiz)
+- [David Vargas](https://github.com/core-david)
+- [Mariano Luna](https://github.com/Elma-reano)
+- [Diego Garza](https://github.com/DiegoGarzaGzz)
+- [Franco Mendoza]()
